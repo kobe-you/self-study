@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Collection" >
+    <id column="collection_id" property="collectionId" jdbcType="VARCHAR" />
+    <result column="collection_time" property="collectionTime" jdbcType="TIMESTAMP" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="collection_createtime" property="collectionCreatetime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="collection_deletetime" property="collectionDeletetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from collection
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Collection" >
+    insert into collection (collection_id, collection_time, course_id,
+      student_id, collection_createtime, is_delete, 
+      collection_deletetime)
+    values (#{collectionId,jdbcType=VARCHAR}, #{collectionTime,jdbcType=TIMESTAMP}, #{courseId,jdbcType=VARCHAR},
+      #{studentId,jdbcType=VARCHAR}, #{collectionCreatetime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, 
+      #{collectionDeletetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Collection" >
+    update collection
+    set colection_time = #{collectionTime,jdbcType=TIMESTAMP},
+      course_id = #{courseId,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      collection_createtime = #{collectionCreatetime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      collection_deletetime = #{collectionDeletetime,jdbcType=TIMESTAMP}
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select collection_id, collection_time, course_id, student_id, collection_createtime,
+    is_delete, collection_deletetime
+    from collection
+    where collection_id = #{collectionId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select collection_id, collection_time, course_id, student_id, collection_createtime,
+    is_delete, collection_deletetime
+    from collection  limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

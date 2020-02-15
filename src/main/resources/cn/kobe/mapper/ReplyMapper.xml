@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.ReplyMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Reply" >
+    <id column="reply_id" property="replyId" jdbcType="VARCHAR" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="replyer_id" property="replyerId" jdbcType="VARCHAR" />
+    <result column="relyered_id" property="relyeredId" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from reply
+    where reply_id = #{replyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Reply" >
+    insert into reply (reply_id, reply_content, reply_time, 
+      comment_id, replyer_id, relyered_id
+      )
+    values (#{replyId,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{commentId,jdbcType=VARCHAR}, #{replyerId,jdbcType=VARCHAR}, #{relyeredId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Reply" >
+    update reply
+    set reply_content = #{replyContent,jdbcType=VARCHAR},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      comment_id = #{commentId,jdbcType=VARCHAR},
+      replyer_id = #{replyerId,jdbcType=VARCHAR},
+      relyered_id = #{relyeredId,jdbcType=VARCHAR}
+    where reply_id = #{replyId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select reply_id, reply_content, reply_time, comment_id, replyer_id, relyered_id
+    from reply
+    where reply_id = #{replyId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select reply_id, reply_content, reply_time, comment_id, replyer_id, relyered_id
+    from reply limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.BuyMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Buy" >
+    <id column="buy_id" property="buyId" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="buy_createtime" property="buyCreatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from buy
+    where buy_id = #{buyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Buy" >
+    insert into buy (buy_id, course_id, student_id, 
+      buy_createtime)
+    values (#{buyId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, 
+      #{buyCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Buy" >
+    update buy
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      buy_createtime = #{buyCreatetime,jdbcType=TIMESTAMP}
+    where buy_id = #{buyId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select buy_id, course_id, student_id, buy_createtime
+    from buy
+    where buy_id = #{buyId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select buy_id, course_id, student_id, buy_createtime
+    from buy limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

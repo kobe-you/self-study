@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Admin" >
+    <id column="admin_account" property="adminAccount" jdbcType="VARCHAR" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="admin_password" property="adminPassword" jdbcType="VARCHAR" />
+    <result column="admin_power" property="adminPower" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from admin
+    where admin_account = #{adminAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Admin" >
+    insert into admin (admin_account, admin_name, admin_password, 
+      admin_power)
+    values (#{adminAccount,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
+      #{adminPower,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Admin" >
+    update admin
+    set admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_power = #{adminPower,jdbcType=INTEGER}
+    where admin_account = #{adminAccount,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select admin_account, admin_name, admin_password, admin_power
+    from admin
+    where admin_account = #{adminAccount,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select admin_account, admin_name, admin_password, admin_power
+    from admin limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

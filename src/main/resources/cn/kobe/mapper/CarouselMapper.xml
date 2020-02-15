@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.CarouselMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Carousel" >
+    <id column="carousel_id" property="carouselId" jdbcType="VARCHAR" />
+    <result column="carouse_color" property="carouseColor" jdbcType="VARCHAR" />
+    <result column="carouse_url" property="carouseUrl" jdbcType="VARCHAR" />
+    <result column="carouse_createtime" property="carouseCreatetime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="carouse_deletetime" property="carouseDeletetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from carousel
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Carousel" >
+    insert into carousel (carousel_id, carouse_color, carouse_url, 
+      carouse_createtime, is_delete, carouse_deletetime
+      )
+    values (#{carouselId,jdbcType=VARCHAR}, #{carouseColor,jdbcType=VARCHAR}, #{carouseUrl,jdbcType=VARCHAR}, 
+      #{carouseCreatetime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, #{carouseDeletetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Carousel" >
+    update carousel
+    set carouse_color = #{carouseColor,jdbcType=VARCHAR},
+      carouse_url = #{carouseUrl,jdbcType=VARCHAR},
+      carouse_createtime = #{carouseCreatetime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      carouse_deletetime = #{carouseDeletetime,jdbcType=TIMESTAMP}
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select carousel_id, carouse_color, carouse_url, carouse_createtime, is_delete, carouse_deletetime
+    from carousel
+    where carousel_id = #{carouselId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select carousel_id, carouse_color, carouse_url, carouse_createtime, is_delete, carouse_deletetime
+    from carousel limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

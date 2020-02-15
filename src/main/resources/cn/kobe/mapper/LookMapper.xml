@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.LookMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Look" >
+    <id column="look_id" property="lookId" jdbcType="VARCHAR" />
+    <result column="lesson_id" property="lessonId" jdbcType="VARCHAR" />
+    <result column="look_createtime" property="lookCreatetime" jdbcType="TIMESTAMP" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from look
+    where look_id = #{lookId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Look" >
+    insert into look (look_id, lesson_id, look_createtime, 
+      student_id)
+    values (#{lookId,jdbcType=VARCHAR}, #{lessonId,jdbcType=VARCHAR}, #{lookCreatetime,jdbcType=TIMESTAMP}, 
+      #{studentId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Look" >
+    update look
+    set lesson_id = #{lessonId,jdbcType=VARCHAR},
+      look_createtime = #{lookCreatetime,jdbcType=TIMESTAMP},
+      student_id = #{studentId,jdbcType=VARCHAR}
+    where look_id = #{lookId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select look_id, lesson_id, look_createtime, student_id
+    from look
+    where look_id = #{lookId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select look_id, lesson_id, look_createtime, student_id
+    from look limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

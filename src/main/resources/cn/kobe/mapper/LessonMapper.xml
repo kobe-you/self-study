@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.LessonMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Lesson" >
+    <result column="lesson_id" property="lessonId" jdbcType="VARCHAR" />
+    <result column="lesson_name" property="lessonName" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="lesson_coin" property="lessonCoin" jdbcType="INTEGER" />
+    <result column="lesson_count" property="lessonCount" jdbcType="INTEGER" />
+    <result column="lesson_createtime" property="lessonCreatetime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="lesson_deletetime" property="lessonDeletetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.kobe.bean.Lesson" >
+    insert into lesson (lesson_id, lesson_name, course_id, 
+      lesson_coin, lesson_count, lesson_createtime, 
+      is_delete, lesson_deletetime)
+    values (#{lessonId,jdbcType=VARCHAR}, #{lessonName,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, 
+      #{lessonCoin,jdbcType=INTEGER}, #{lessonCount,jdbcType=INTEGER}, #{lessonCreatetime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=BIT}, #{lessonDeletetime,jdbcType=TIMESTAMP})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select lesson_id, lesson_name, course_id, lesson_coin, lesson_count, lesson_createtime, 
+    is_delete, lesson_deletetime
+    from lesson limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

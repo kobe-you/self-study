@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Course" >
+    <id column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_picture" property="coursePicture" jdbcType="VARCHAR" />
+    <result column="course_describe" property="courseDescribe" jdbcType="VARCHAR" />
+    <result column="course_type" property="courseType" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="course_baidu_url" property="courseBaiduUrl" jdbcType="VARCHAR" />
+    <result column="course_level" property="courseLevel" jdbcType="VARCHAR" />
+    <result column="course_basics" property="courseBasics" jdbcType="VARCHAR" />
+    <result column="course_software" property="courseSoftware" jdbcType="VARCHAR" />
+    <result column="course_createtime" property="courseCreatetime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="course_deletetime" property="courseDeletetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from course
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Course" >
+    insert into course (course_id, course_name, course_picture, 
+      course_describe, course_type, teacher_id, 
+      course_baidu_url, course_level, course_basics, 
+      course_software, course_createtime, is_delete, 
+      course_deletetime)
+    values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{coursePicture,jdbcType=VARCHAR}, 
+      #{courseDescribe,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, #{teacherId,jdbcType=VARCHAR}, 
+      #{courseBaiduUrl,jdbcType=VARCHAR}, #{courseLevel,jdbcType=VARCHAR}, #{courseBasics,jdbcType=VARCHAR}, 
+      #{courseSoftware,jdbcType=VARCHAR}, #{courseCreatetime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, 
+      #{courseDeletetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Course" >
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_picture = #{coursePicture,jdbcType=VARCHAR},
+      course_describe = #{courseDescribe,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=VARCHAR},
+      course_baidu_url = #{courseBaiduUrl,jdbcType=VARCHAR},
+      course_level = #{courseLevel,jdbcType=VARCHAR},
+      course_basics = #{courseBasics,jdbcType=VARCHAR},
+      course_software = #{courseSoftware,jdbcType=VARCHAR},
+      course_createtime = #{courseCreatetime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      course_deletetime = #{courseDeletetime,jdbcType=TIMESTAMP}
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select course_id, course_name, course_picture, course_describe, course_type, teacher_id, 
+    course_baidu_url, course_level, course_basics, course_software, course_createtime, 
+    is_delete, course_deletetime
+    from course
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select course_id, course_name, course_picture, course_describe, course_type, teacher_id, 
+    course_baidu_url, course_level, course_basics, course_software, course_createtime, 
+    is_delete, course_deletetime
+    from course limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

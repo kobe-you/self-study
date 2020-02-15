@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Teacher" >
+    <id column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    <id column="teacher_account" property="teacherAccount" jdbcType="VARCHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teacher_password" property="teacherPassword" jdbcType="VARCHAR" />
+    <result column="teacher_sex" property="teacherSex" jdbcType="VARCHAR" />
+    <result column="teacher_phone" property="teacherPhone" jdbcType="VARCHAR" />
+    <result column="teacher_email" property="teacherEmail" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="teacher_createtime" property="teacherCreatetime" jdbcType="TIMESTAMP" />
+    <result column="teacher_deletetime" property="teacherDeletetime" jdbcType="TIMESTAMP" />
+    <result column="teacher_img" property="teacherImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from teacher
+    where teacher_id = #{teacherId,jdbcType=VARCHAR}
+      and teacher_account = #{teacherAccount,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Teacher" >
+    insert into teacher (teacher_id, teacher_account, teacher_name, 
+      teacher_password, teacher_sex, teacher_phone, 
+      teacher_email, is_delete, teacher_createtime, 
+      teacher_deletetime,teacher_img)
+    values (#{teacherId,jdbcType=VARCHAR}, #{teacherAccount,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+      #{teacherPassword,jdbcType=VARCHAR}, #{teacherSex,jdbcType=VARCHAR}, #{teacherPhone,jdbcType=VARCHAR}, 
+      #{teacherEmail,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{teacherCreatetime,jdbcType=TIMESTAMP}, 
+      #{teacherDeletetime,jdbcType=TIMESTAMP}),#{teacherImg,jdbcType=VARCHAR}
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Teacher" >
+    update teacher
+    set teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teacher_password = #{teacherPassword,jdbcType=VARCHAR},
+      teacher_sex = #{teacherSex,jdbcType=VARCHAR},
+      teacher_phone = #{teacherPhone,jdbcType=VARCHAR},
+      teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      teacher_createtime = #{teacherCreatetime,jdbcType=TIMESTAMP},
+      teacher_deletetime = #{teacherDeletetime,jdbcType=TIMESTAMP},
+      teacher_img = #{teacherImg,jdbcType=VARCHAR}
+    where teacher_id = #{teacherId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select teacher_id, teacher_account, teacher_name, teacher_password, teacher_sex, 
+    teacher_phone, teacher_email, is_delete, teacher_createtime, teacher_deletetime,
+    teacher_img
+    from teacher
+    where teacher_id = #{teacherId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select teacher_id, teacher_account, teacher_name, teacher_password, teacher_sex, 
+    teacher_phone, teacher_email, is_delete, teacher_createtime, teacher_deletetime,
+    teacher_img
+    from teacher limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>

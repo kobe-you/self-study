@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.PayMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.bean.Pay" >
+    <id column="pay_id" property="payId" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="pay_money" property="payMoney" jdbcType="REAL" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pay
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.kobe.bean.Pay" >
+    insert into pay (pay_id, student_id, pay_money, 
+      pay_time)
+    values (#{payId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, #{payMoney,jdbcType=REAL}, 
+      #{payTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Pay" >
+    update pay
+    set student_id = #{studentId,jdbcType=VARCHAR},
+      pay_money = #{payMoney,jdbcType=REAL},
+      pay_time = #{payTime,jdbcType=TIMESTAMP}
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select pay_id, student_id, pay_money, pay_time
+    from pay
+    where pay_id = #{payId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select pay_id, student_id, pay_money, pay_time
+    from pay limit #{pageNumber}, #{pageSize}
+  </select>
+</mapper>
