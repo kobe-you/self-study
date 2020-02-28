@@ -25,6 +25,26 @@ public class Teacher {
 
     private String teacherImg;
 
+    private String teacherDescribe;
+
+    private String teacherFile;
+
+    public String getTeacherFile() {
+        return teacherFile;
+    }
+
+    public void setTeacherFile(String teacherFile) {
+        this.teacherFile = teacherFile;
+    }
+
+    public String getTeacherDescribe() {
+        return teacherDescribe;
+    }
+
+    public void setTeacherDescribe(String teacherDescribe) {
+        this.teacherDescribe = teacherDescribe;
+    }
+
     public Boolean getDelete() {
         return isDelete;
     }

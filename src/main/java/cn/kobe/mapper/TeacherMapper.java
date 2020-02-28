@@ -14,4 +14,12 @@ public interface TeacherMapper {
     List<Teacher> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Teacher record);
+
+    List<Teacher> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    List<Teacher> searchTopTeacher();
+
+    Teacher selectByAccount(String acount);
+
+    Integer getMoney(String id);
 }

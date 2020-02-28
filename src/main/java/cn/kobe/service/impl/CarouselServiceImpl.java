@@ -51,4 +51,12 @@ public class CarouselServiceImpl implements CarouselService {
         int i = carouselMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Carousel> selectByName(String name, Integer pageNumber, Integer pageSize) {
+
+        pageNumber = pageNumber * pageSize;
+        List<Carousel> carousels = carouselMapper.selectByName(name, pageNumber, pageSize);
+        return carousels;
+    }
 }

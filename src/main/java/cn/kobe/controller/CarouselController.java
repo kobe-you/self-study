@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Buy;
 import cn.kobe.bean.Carousel;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -34,6 +35,9 @@ public class CarouselController {
         List<Carousel> carousels = carouselService.selectAll(pageNumber, pageSize);
         pageResult.setData(carousels);
         pageResult.setCode("200");
+        pageResult.setTotal(carousels.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -75,5 +79,19 @@ public class CarouselController {
             return new Result<Carousel>(Status.SUCCESS, "success", carousel);
         }
         return new Result<Carousel>(Status.SYSTEM_OF_ERROR, "system of error",carousel);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Carousel> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Carousel> pageResult = new PageResult<Carousel>();
+        List<Carousel> carousels = carouselService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(carousels);
+        pageResult.setCode("200");
+        pageResult.setTotal(carousels.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.CommentAndReplyMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.beanVo.CommentAndReply" >
+    <id column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="student_account" property="studentAccount" jdbcType="VARCHAR" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_password" property="studentPassword" jdbcType="VARCHAR" />
+    <result column="student_phone" property="studentPhone" jdbcType="VARCHAR" />
+    <result column="student_sex" property="studentSex" jdbcType="VARCHAR" />
+    <result column="student_coin" property="studentCoin" jdbcType="INTEGER" />
+    <result column="student_email" property="studentEmail" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="student_createtime" property="studentCreatetime" jdbcType="TIMESTAMP" />
+    <result column="student_deletetime" property="studentDeletetime" jdbcType="TIMESTAMP" />
+    <result column="student_img" property="studentImg" jdbcType="VARCHAR" />
+    <result column="courseId" property="courseId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="studentC" property="studentC" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectAllComment" resultMap="BaseResultMap">
+    SELECT * FROM
+    (SELECT IF(T.type='t2',T.createDate2,T.createDate3) AS createDate, T.type, T.course_id AS courseId, T.student_id AS studentC, T.content
+    FROM((SELECT nc.comment_createtime AS createDate2, "" AS createDate3, "t2" AS TYPE,
+    nc.student_id, nc.course_id, CONCAT('',nc.comment_content) AS content
+    FROM COMMENT nc
+    WHERE nc.course_id=#{courseId} ORDER BY nc.comment_createtime ASC)
+    UNION (SELECT nc.comment_createtime AS createDate2, nr.reply_time AS createDate3, "t3" AS TYPE,
+    nr.replyer_id, nc.course_id, CONCAT('    ',nr.reply_content) AS content FROM reply nr
+    LEFT JOIN COMMENT nc ON nr.comment_id=nc.comment_id WHERE nc.course_id=#{courseId}
+    ORDER BY nc.comment_createtime ASC, nr.reply_time ASC)) AS T ORDER BY createDate2 ASC, createDate3 ASC) AS a
+    LEFT JOIN student AS s ON a.studentC=s.student_account ORDER BY a.createDate asc
+  </select>
+</mapper>

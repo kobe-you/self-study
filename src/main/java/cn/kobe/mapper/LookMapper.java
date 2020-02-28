@@ -15,4 +15,8 @@ public interface LookMapper {
     List<Look> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Look record);
+
+    List<Look> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    Look selectLook(@Param("lessonId") String lessonId, @Param("studentId") String studentId);
 }

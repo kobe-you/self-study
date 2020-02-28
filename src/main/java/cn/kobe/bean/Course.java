@@ -23,11 +23,29 @@ public class Course {
 
     private String courseSoftware;
 
+    private String courseCate;
+
     private Date courseCreatetime;
 
     private Boolean isDelete;
 
     private Date courseDeletetime;
+
+    public String getCourseCate() {
+        return courseCate;
+    }
+
+    public void setCourseCate(String courseCate) {
+        this.courseCate = courseCate;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
 
     public String getCourseId() {
         return courseId;

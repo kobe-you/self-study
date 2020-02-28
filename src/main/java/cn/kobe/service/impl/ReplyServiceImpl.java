@@ -51,4 +51,11 @@ public class ReplyServiceImpl implements ReplyService {
         int i = replyMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Reply> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Reply> replies = replyMapper.selectByName(name, pageNumber, pageSize);
+        return replies;
+    }
 }

@@ -28,7 +28,6 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public int insert(Pay record) {
-        record.setPayId(Long.toString(snowflakeIdWorker.nextId()));
         int insert = payMapper.insert(record);
         return insert;
     }
@@ -50,5 +49,12 @@ public class PayServiceImpl implements PayService {
     public int updateByPrimaryKey(Pay record) {
         int i = payMapper.updateByPrimaryKey(record);
         return i;
+    }
+
+    @Override
+    public List<Pay> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Pay> pays = payMapper.selectByName(name, pageNumber, pageSize);
+        return pays;
     }
 }

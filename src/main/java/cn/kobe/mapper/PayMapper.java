@@ -17,4 +17,6 @@ public interface PayMapper {
     List<Pay> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Pay record);
+
+    List<Pay> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 }

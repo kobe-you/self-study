@@ -15,7 +15,25 @@ public class Comment {
 
     private Boolean isDelete;
 
+    private Date commentCreatetime;
+
     private Date commentDeletetime;
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
+    public Date getCommentCreatetime() {
+        return commentCreatetime;
+    }
+
+    public void setCommentCreatetime(Date commentCreatetime) {
+        this.commentCreatetime = commentCreatetime;
+    }
 
     public String getCommentId() {
         return commentId;

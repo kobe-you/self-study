@@ -49,4 +49,17 @@ public class AdminServiceImpl implements AdminService {
         int i = adminMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Admin> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Admin> admins = adminMapper.selectByName(name, pageNumber, pageSize);
+        return admins;
+    }
+
+    @Override
+    public Admin login(String account, String password) {
+        Admin admin = adminMapper.login(account, password);
+        return admin;
+    }
 }

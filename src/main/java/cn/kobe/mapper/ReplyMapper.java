@@ -15,4 +15,6 @@ public interface ReplyMapper {
     List<Reply> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Reply record);
+
+    List<Reply> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 }

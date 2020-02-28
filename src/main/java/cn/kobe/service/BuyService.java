@@ -19,4 +19,6 @@ public interface BuyService {
     List<Buy> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Buy record);
+
+    List<Buy> selectByName(String name, Integer pageNumber, Integer pageSize);
 }

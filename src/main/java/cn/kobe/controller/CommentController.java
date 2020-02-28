@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Buy;
 import cn.kobe.bean.Comment;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +36,9 @@ public class CommentController {
         List<Comment> comments = commentService.selectAll(pageNumber, pageSize);
         pageResult.setData(comments);
         pageResult.setCode("200");
+        pageResult.setTotal(comments.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -50,6 +55,8 @@ public class CommentController {
     @RequestMapping("/add")
     @ResponseBody
     public Result<String> insert(@RequestBody Comment comment) {
+        comment.setCommentCreatetime(new Date());
+        System.out.println(comment.getCommentCreatetime());
         int insert = commentService.insert(comment);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");
@@ -75,5 +82,19 @@ public class CommentController {
             return new Result<Comment>(Status.SUCCESS, "success", comment);
         }
         return new Result<Comment>(Status.SYSTEM_OF_ERROR, "system of error",comment);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Comment> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Comment> pageResult = new PageResult<Comment>();
+        List<Comment> comments = commentService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(comments);
+        pageResult.setCode("200");
+        pageResult.setTotal(comments.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
     }
 }

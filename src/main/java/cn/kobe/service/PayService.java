@@ -19,4 +19,6 @@ public interface PayService {
     List<Pay> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Pay record);
+
+    List<Pay> selectByName(String name, Integer pageNumber, Integer pageSize);
 }

@@ -34,6 +34,9 @@ public class AdminController {
         List<Admin> admins = adminService.selectAll(pageNumber, pageSize);
         pageResult.setData(admins);
         pageResult.setCode("200");
+        pageResult.setTotal(admins.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -75,5 +78,19 @@ public class AdminController {
             return new Result<Admin>(Status.SUCCESS, "success", admin);
         }
         return new Result<Admin>(Status.SYSTEM_OF_ERROR, "system of error",admin);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Admin> selectByName(@PathVariable("name") String name,@PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Admin> pageResult = new PageResult<Admin>();
+        List<Admin> admins = adminService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(admins);
+        pageResult.setCode("200");
+        pageResult.setTotal(admins.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
     }
 }

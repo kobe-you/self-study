@@ -19,4 +19,6 @@ public interface CommentService {
     List<Comment> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectByName(String name, Integer pageNumber, Integer pageSize);
 }

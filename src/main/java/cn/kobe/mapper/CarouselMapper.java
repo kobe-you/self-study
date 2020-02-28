@@ -17,4 +17,6 @@ public interface CarouselMapper {
     List<Carousel> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Carousel record);
+
+    List<Carousel> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 }

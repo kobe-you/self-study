@@ -51,4 +51,11 @@ public class BuyServiceImpl implements BuyService {
         int i = buyMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Buy> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Buy> buys = buyMapper.selectByName(name, pageNumber, pageSize);
+        return buys;
+    }
 }

@@ -19,4 +19,6 @@ public interface CarouselService {
     List<Carousel> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Carousel record);
+
+    List<Carousel> selectByName(String name, Integer pageNumber, Integer pageSize);
 }

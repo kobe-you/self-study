@@ -51,4 +51,11 @@ public class CollectionServiceImpl implements CollectionService {
         int i = collectionMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Collection> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Collection> collections = collectionMapper.selectByName(name, pageNumber, pageSize);
+        return collections;
+    }
 }

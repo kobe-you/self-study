@@ -19,4 +19,8 @@ public interface AdminService {
     List<Admin> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Admin record);
+
+    List<Admin> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    Admin login(String account, String password);
 }

@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Look;
 import cn.kobe.bean.Reply;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -34,6 +35,9 @@ public class ReplyController {
         List<Reply> replies = replyService.selectAll(pageNumber, pageSize);
         pageResult.setData(replies);
         pageResult.setCode("200");
+        pageResult.setTotal(replies.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -75,5 +79,19 @@ public class ReplyController {
             return new Result<Reply>(Status.SUCCESS, "success", reply);
         }
         return new Result<Reply>(Status.SYSTEM_OF_ERROR, "system of error",reply);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Reply> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Reply> pageResult = new PageResult<Reply>();
+        List<Reply> replies = replyService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(replies);
+        pageResult.setCode("200");
+        pageResult.setTotal(replies.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
     }
 }

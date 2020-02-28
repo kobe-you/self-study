@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.CourseVoMapper" >
+    <resultMap id="BaseResultMap" type="cn.kobe.beanVo.CourseVo" >
+        <id column="course_id" property="courseId" jdbcType="VARCHAR" />
+        <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+        <result column="course_picture" property="coursePicture" jdbcType="VARCHAR" />
+        <result column="course_describe" property="courseDescribe" jdbcType="VARCHAR" />
+        <result column="course_type" property="courseType" jdbcType="VARCHAR" />
+        <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+        <result column="course_baidu_url" property="courseBaiduUrl" jdbcType="VARCHAR" />
+        <result column="course_level" property="courseLevel" jdbcType="VARCHAR" />
+        <result column="course_basics" property="courseBasics" jdbcType="VARCHAR" />
+        <result column="course_software" property="courseSoftware" jdbcType="VARCHAR" />
+        <result column="course_cate" property="courseCate" jdbcType="VARCHAR" />
+        <result column="course_createtime" property="courseCreatetime" jdbcType="TIMESTAMP" />
+        <result column="is_delete" property="isDelete" jdbcType="BIT" />
+        <result column="course_deletetime" property="courseDeletetime" jdbcType="TIMESTAMP" />
+        <result column="tmp_num" property="tmpNum" jdbcType="VARCHAR" />
+        <result column="types" property="types" jdbcType="VARCHAR" />
+        <result column="sums" property="sums" jdbcType="INTEGER" />
+        <result column="counts" property="counts" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="searchAllCourse" resultMap="BaseResultMap" >
+    SELECT course.*,IFNULL(SUM(lesson.`lesson_count`),0) AS sums,COUNT(lesson.`lesson_id`) AS counts
+    FROM course  LEFT JOIN lesson
+    ON course.`course_id`=lesson.`course_id`
+    WHERE course.`course_type`=#{courseType}
+    GROUP BY course.`course_id`
+  </select>
+    <select id="searchTenCate" resultMap="BaseResultMap">
+    SELECT * FROM(
+    SELECT *,IF(@types=course_type,@tmp_num:=@tmp_num+1,@tmp_num:=0) as tmp_num,@types:=course_type as types
+    FROM course ORDER BY course_type) As a
+    WHERE a.tmp_num <![CDATA[ < ]]> 4
+  </select>
+    <select id="searchByName" resultMap="BaseResultMap">
+    SELECT course.*,IFNULL(SUM(lesson.`lesson_count`),0) AS sums,COUNT(lesson.`lesson_id`) AS counts
+    FROM course  LEFT JOIN lesson
+    ON course.`course_id`=lesson.`course_id`
+    WHERE course.`course_name` LIKE #{courseName}
+    GROUP BY course.`course_id`
+  </select>
+</mapper>

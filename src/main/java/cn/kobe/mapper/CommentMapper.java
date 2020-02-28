@@ -15,4 +15,6 @@ public interface CommentMapper {
     List<Comment> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 }

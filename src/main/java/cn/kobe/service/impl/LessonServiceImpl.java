@@ -52,4 +52,17 @@ public class LessonServiceImpl implements LessonService {
         int i = lessonMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Lesson> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Lesson> lessons = lessonMapper.selectByName(name, pageNumber, pageSize);
+        return lessons;
+    }
+
+    @Override
+    public List<Lesson> selectByCourseId(String id) {
+        List<Lesson> lessons = lessonMapper.selectByCourseId(id);
+        return lessons;
+    }
 }

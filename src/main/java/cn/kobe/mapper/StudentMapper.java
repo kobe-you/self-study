@@ -15,4 +15,14 @@ public interface StudentMapper {
     List<Student> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Student record);
+
+    Integer selectCounts();
+
+    List<Student> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    Integer deleteImg(String id);
+
+    Student login(@Param("account")String account,@Param("password") String password);
+
+    Integer updateCoinById(@Param("id") String studentId, @Param("v") float v);
 }

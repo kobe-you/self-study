@@ -51,4 +51,11 @@ public class CommentServiceImpl implements CommentService {
         int i = commentMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Comment> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Comment> comments = commentMapper.selectByName(name, pageNumber, pageSize);
+        return comments;
+    }
 }

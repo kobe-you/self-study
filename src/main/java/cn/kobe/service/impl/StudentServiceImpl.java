@@ -52,4 +52,34 @@ public class StudentServiceImpl implements StudentService {
         int i = studentMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public Integer selectCounts() {
+        return studentMapper.selectCounts();
+    }
+
+    @Override
+    public List<Student> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Student> students = studentMapper.selectByName(name, pageNumber, pageSize);
+        return students;
+    }
+
+    @Override
+    public Integer deleteImg(String id) {
+        Integer i = studentMapper.deleteImg(id);
+        return i;
+    }
+
+    @Override
+    public Student login(String account, String password) {
+        Student student = studentMapper.login(account, password);
+        return student;
+    }
+
+    @Override
+    public Integer updateCoinById(String studentId, float v) {
+        Integer i = studentMapper.updateCoinById(studentId, v);
+        return i;
+    }
 }

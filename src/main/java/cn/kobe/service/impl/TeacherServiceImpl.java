@@ -50,4 +50,30 @@ public class TeacherServiceImpl implements TeacherService {
         int i = teacherMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Teacher> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Teacher> teachers = teacherMapper.selectByName(name, pageNumber, pageSize);
+        return teachers;
+    }
+
+    @Override
+    public List<Teacher> searchTopTeacher() {
+        List<Teacher> teachers = teacherMapper.searchTopTeacher();
+        return teachers;
+    }
+
+    @Override
+    public Teacher selectByAccount(String acount) {
+        Teacher teacher = teacherMapper.selectByAccount(acount);
+        return teacher;
+    }
+
+    @Override
+    public Integer getMoney(String id) {
+        Integer money = teacherMapper.getMoney(id);
+        return money;
+    }
+
 }

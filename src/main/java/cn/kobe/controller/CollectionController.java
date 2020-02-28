@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Buy;
 import cn.kobe.bean.Collection;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -34,6 +35,9 @@ public class CollectionController {
         List<Collection> collections = collectionService.selectAll(pageNumber, pageSize);
         pageResult.setData(collections);
         pageResult.setCode("200");
+        pageResult.setTotal(collections.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -75,5 +79,19 @@ public class CollectionController {
             return new Result<Collection>(Status.SUCCESS, "success", collection);
         }
         return new Result<Collection>(Status.SYSTEM_OF_ERROR, "system of error",collection);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Collection> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Collection> pageResult = new PageResult<Collection>();
+        List<Collection> collections = collectionService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(collections);
+        pageResult.setCode("200");
+        pageResult.setTotal(collections.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
     }
 }

@@ -17,4 +17,6 @@ public interface CollectionMapper {
     List<Collection> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Collection record);
+
+    List<Collection> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 }

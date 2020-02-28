@@ -51,4 +51,17 @@ public class LookServiceImpl implements LookService {
         int i = lookMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<Look> selectByName(String name, Integer pageNumber, Integer pageSize) {
+        pageNumber = pageNumber * pageSize;
+        List<Look> looks = lookMapper.selectByName(name, pageNumber, pageSize);
+        return looks;
+    }
+
+    @Override
+    public Look selectLook(String lessonId, String studentId) {
+        Look look = lookMapper.selectLook(lessonId, studentId);
+        return look;
+    }
 }

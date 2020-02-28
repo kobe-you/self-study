@@ -21,4 +21,6 @@ public interface ReplyService {
     List<Reply> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Reply record);
+
+    List<Reply> selectByName(String name, Integer pageNumber, Integer pageSize);
 }

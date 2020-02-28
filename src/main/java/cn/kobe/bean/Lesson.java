@@ -19,6 +19,24 @@ public class Lesson {
 
     private Date lessonDeletetime;
 
+    private String lessonVideo;
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
+    public String getLessonVideo() {
+        return lessonVideo;
+    }
+
+    public void setLessonVideo(String lessonVideo) {
+        this.lessonVideo = lessonVideo;
+    }
+
     public String getLessonId() {
         return lessonId;
     }

@@ -18,4 +18,8 @@ public interface LessonMapper {
     List<Lesson> selectAll(@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     int updateByPrimaryKey(Lesson record);
+
+    List<Lesson> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    List<Lesson> selectByCourseId(String id);
 }

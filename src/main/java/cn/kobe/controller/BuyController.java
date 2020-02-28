@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Admin;
 import cn.kobe.bean.Buy;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -34,6 +35,9 @@ public class BuyController {
         List<Buy> buys = buyService.selectAll(pageNumber, pageSize);
         pageResult.setData(buys);
         pageResult.setCode("200");
+        pageResult.setTotal(buys.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -75,5 +79,19 @@ public class BuyController {
             return new Result<Buy>(Status.SUCCESS, "success", buy);
         }
         return new Result<Buy>(Status.SYSTEM_OF_ERROR, "system of error",buy);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Buy> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Buy> pageResult = new PageResult<Buy>();
+        List<Buy> buys = buyService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(buys);
+        pageResult.setCode("200");
+        pageResult.setTotal(buys.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
     }
 }

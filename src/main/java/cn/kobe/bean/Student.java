@@ -1,8 +1,9 @@
 package cn.kobe.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Student {
+public class Student implements Serializable {
     private String studentId;
 
     private String studentAccount;
@@ -129,5 +130,23 @@ public class Student {
 
     public void setStudentDeletetime(Date studentDeletetime) {
         this.studentDeletetime = studentDeletetime;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId='" + studentId + '\'' +
+                ", studentAccount='" + studentAccount + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", studentPassword='" + studentPassword + '\'' +
+                ", studentPhone='" + studentPhone + '\'' +
+                ", studentSex='" + studentSex + '\'' +
+                ", studentCoin=" + studentCoin +
+                ", studentEmail='" + studentEmail + '\'' +
+                ", isDelete=" + isDelete +
+                ", studentCreatetime=" + studentCreatetime +
+                ", studentDeletetime=" + studentDeletetime +
+                ", studentImg='" + studentImg + '\'' +
+                '}';
     }
 }

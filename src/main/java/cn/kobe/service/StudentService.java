@@ -19,4 +19,14 @@ public interface StudentService {
     List<Student> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Student record);
+
+    Integer selectCounts();
+
+    List<Student> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    Integer deleteImg(String id);
+
+    Student login(String account, String password);
+
+    Integer updateCoinById(String studentId, float v);
 }

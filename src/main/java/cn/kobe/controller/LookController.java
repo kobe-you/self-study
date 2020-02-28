@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Buy;
 import cn.kobe.bean.Look;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +36,9 @@ public class LookController {
         List<Look> looks = lookService.selectAll(pageNumber, pageSize);
         pageResult.setData(looks);
         pageResult.setCode("200");
+        pageResult.setTotal(looks.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -50,6 +55,7 @@ public class LookController {
     @RequestMapping("/add")
     @ResponseBody
     public Result<String> insert(@RequestBody Look look) {
+        look.setLookCreatetime(new Date());
         int insert = lookService.insert(look);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");
@@ -71,6 +77,34 @@ public class LookController {
     @ResponseBody
     public Result<Look> selectByPrimaryKey(@PathVariable("id") String lookId) {
         Look look = lookService.selectByPrimaryKey(lookId);
+        if(look != null) {
+            return new Result<Look>(Status.SUCCESS, "success", look);
+        }
+        return new Result<Look>(Status.SYSTEM_OF_ERROR, "system of error",look);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size")
+    @ResponseBody
+    public PageResult<Look> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Look> pageResult = new PageResult<Look>();
+        List<Look> looks = lookService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(looks);
+        pageResult.setCode("200");
+        pageResult.setTotal(looks.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
+    }
+
+    /**
+        检查是否看过
+     */
+    @RequestMapping("/selectLook/{lessonId}/{studentId}")
+    @ResponseBody
+    public Result<Look> selectLook(@PathVariable("lessonId") String lessonId, @PathVariable("studentId") String studentId) {
+        Look look = lookService.selectLook(lessonId, studentId);
+        System.out.println(look+""+lessonId+""+studentId);
         if(look != null) {
             return new Result<Look>(Status.SUCCESS, "success", look);
         }

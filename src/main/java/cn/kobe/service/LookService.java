@@ -19,4 +19,8 @@ public interface LookService {
     List<Look> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Look record);
+
+    List<Look> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    Look selectLook(String lessonId, String studentId);
 }

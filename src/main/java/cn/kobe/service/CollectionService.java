@@ -19,4 +19,6 @@ public interface CollectionService {
     List<Collection> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Collection record);
+
+    List<Collection> selectByName(String name, Integer pageNumber, Integer pageSize);
 }

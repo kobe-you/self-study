@@ -22,4 +22,12 @@ public interface TeacherService {
     List<Teacher> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Teacher record);
+
+    List<Teacher> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    List<Teacher> searchTopTeacher();
+
+    Teacher selectByAccount(String acount);
+
+    Integer getMoney(String id);
 }

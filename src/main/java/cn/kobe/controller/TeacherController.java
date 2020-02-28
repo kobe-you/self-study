@@ -1,5 +1,6 @@
 package cn.kobe.controller;
 
+import cn.kobe.bean.Admin;
 import cn.kobe.bean.Teacher;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
@@ -34,6 +35,9 @@ public class TeacherController {
         List<Teacher> teachers = teacherService.selectAll(pageNumber, pageSize);
         pageResult.setData(teachers);
         pageResult.setCode("200");
+        pageResult.setTotal(teachers.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
         return pageResult;
     }
 
@@ -50,6 +54,7 @@ public class TeacherController {
     @RequestMapping("/add")
     @ResponseBody
     public Result<String> insert(@RequestBody Teacher teacher) {
+        teacher.setDelete(false);
         int insert = teacherService.insert(teacher);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");
@@ -75,5 +80,50 @@ public class TeacherController {
             return new Result<Teacher>(Status.SUCCESS, "success", teacher);
         }
         return new Result<Teacher>(Status.SYSTEM_OF_ERROR, "system of error",teacher);
+    }
+
+    @RequestMapping("/selectByAccount/{account}")
+    @ResponseBody
+    public Result<Teacher> selectByAccount(@PathVariable("account") String account) {
+        Teacher teacher = teacherService.selectByAccount(account);
+        if(teacher != null) {
+            return new Result<Teacher>(Status.SUCCESS, "success", teacher);
+        }
+        return new Result<Teacher>(Status.SYSTEM_OF_ERROR, "system of error",teacher);
+    }
+
+    @RequestMapping("/search/{name}/{page}/{size}")
+    @ResponseBody
+    public PageResult<Teacher> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
+        pageNumber--;
+        PageResult<Teacher> pageResult = new PageResult<Teacher>();
+        List<Teacher> teachers = teacherService.selectByName(name, pageNumber, pageSize);
+        pageResult.setData(teachers);
+        pageResult.setCode("200");
+        pageResult.setTotal(teachers.size());
+        pageResult.setPageNumber(pageNumber);
+        pageResult.setPageSize(pageSize);
+        return pageResult;
+    }
+
+    @RequestMapping("/search/searchTopTeacher")
+    @ResponseBody
+    public PageResult<Teacher> searchTopTeacher() {
+        PageResult<Teacher> pageResult = new PageResult<Teacher>();
+        List<Teacher> teachers = teacherService.searchTopTeacher();
+        pageResult.setData(teachers);
+        pageResult.setCode("200");
+        return pageResult;
+    }
+
+    @RequestMapping("/getMoney/{id}")
+    @ResponseBody
+    public Result<Integer> getMoney(@PathVariable("id") String id) {
+        Integer result = teacherService.getMoney(id);
+        System.out.println(result);
+        if(result != null && result != 0) {
+            return new Result<Integer>(Status.SUCCESS, "success", result);
+        }
+        return new Result<Integer>(Status.SYSTEM_OF_ERROR, "system of error",result);
     }
 }

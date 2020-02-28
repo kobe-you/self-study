@@ -20,4 +20,8 @@ public interface LessonService {
     List<Lesson> selectAll(Integer pageNumber, Integer pageSize);
 
     int updateByPrimaryKey(Lesson record);
+
+    List<Lesson> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    List<Lesson> selectByCourseId(String id);
 }
