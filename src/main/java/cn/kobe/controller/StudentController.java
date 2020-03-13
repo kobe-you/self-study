@@ -56,6 +56,7 @@ public class StudentController {
     @ResponseBody
     public Result<String> insert(@RequestBody Student student) {
         System.out.println("kobe");
+        student.setStudentCoin(0);
         int insert = studentServicc.insert(student);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");
@@ -108,5 +109,17 @@ public class StudentController {
             return new Result<String>(Status.SUCCESS, "success","");
         }
         return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/getRank/{studentId}")
+    @ResponseBody
+    public Result<Integer> getRank(@PathVariable("studentId") String studentId) {
+        System.out.println(studentId);
+        Integer i = studentServicc.getRank(studentId);
+        System.out.println(i);
+        if(i != 0) {
+            return new Result<Integer>(Status.SUCCESS, "success",i);
+        }
+        return new Result<Integer>(Status.SYSTEM_OF_ERROR, "system of error",i);
     }
 }

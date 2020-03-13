@@ -43,4 +43,10 @@
     select carousel_id, carouse_color, carouse_url, carouse_createtime, is_delete, carouse_deletetime
     from carousel where carouse_color=#{name} limit #{pageNumber}, #{pageSize}
   </select>
+  <delete id="updateIsDelete" parameterType="java.lang.String" >
+    UPDATE carousel AS c SET c.`is_delete`=1 WHERE c.`carousel_id`=#{s}
+  </delete>
+  <delete id="updateDelete" parameterType="java.lang.String" >
+    UPDATE carousel AS c SET c.`is_delete`=0 WHERE c.`carousel_id`=#{s}
+  </delete>
 </mapper>

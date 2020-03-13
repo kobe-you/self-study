@@ -84,4 +84,7 @@
     (SELECT course_id FROM course WHERE course.`teacher_id`=#{id})) AS a
     WHERE a.lesson_id=look.`lesson_id`
   </select>
+  <select id="getCounts" resultType="java.lang.Integer">
+    select count(teacher_id) from teacher
+  </select>
 </mapper>

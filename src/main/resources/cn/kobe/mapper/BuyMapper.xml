@@ -6,6 +6,7 @@
     <result column="course_id" property="courseId" jdbcType="VARCHAR" />
     <result column="student_id" property="studentId" jdbcType="VARCHAR" />
     <result column="buy_createtime" property="buyCreatetime" jdbcType="TIMESTAMP" />
+    <result column="buy_money" property="buyMoney" jdbcType="DOUBLE" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from buy
@@ -13,29 +14,31 @@
   </delete>
   <insert id="insert" parameterType="cn.kobe.bean.Buy" >
     insert into buy (buy_id, course_id, student_id, 
-      buy_createtime)
+      buy_createtime,buy_money)
     values (#{buyId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, 
-      #{buyCreatetime,jdbcType=TIMESTAMP})
+      #{buyCreatetime,jdbcType=TIMESTAMP},#{buyMoney, jdbcType=DOUBLE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Buy" >
     update buy
     set course_id = #{courseId,jdbcType=VARCHAR},
       student_id = #{studentId,jdbcType=VARCHAR},
-      buy_createtime = #{buyCreatetime,jdbcType=TIMESTAMP}
+      buy_createtime = #{buyCreatetime,jdbcType=TIMESTAMP},
+      buy_money = #{buyMoney ,jdbcType=DOUBLE}
     where buy_id = #{buyId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select buy_id, course_id, student_id, buy_createtime
+    select *
     from buy
     where buy_id = #{buyId,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select buy_id, course_id, student_id, buy_createtime
+    select *
     from buy limit #{pageNumber}, #{pageSize}
   </select>
 
   <select id="selectByName" resultMap="BaseResultMap" >
-    select buy_id, course_id, student_id, buy_createtime
+    select *
     from buy where course_id=#{name} limit #{pageNumber}, #{pageSize}
   </select>
+
 </mapper>

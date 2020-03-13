@@ -37,4 +37,10 @@ public interface CourseMapper {
 
     List<Course> searchStudied(String id);
 
+    List<Course> searchByCateAndGrade(@Param("cate") String cate, @Param("grade") String grade, @Param("sort")Integer sort);
+
+    Integer getCounts();
+
+    List<Course> getAllCourse();
+
 }

@@ -107,4 +107,22 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courses = courseMapper.searchStudied(id);
         return courses;
     }
+
+    @Override
+    public List<Course> searchByCateAndGrade(String cate, String grade, Integer sort) {
+        List<Course> courses = courseMapper.searchByCateAndGrade(cate, grade, sort);
+        return courses;
+    }
+
+    @Override
+    public Integer getCounts() {
+        Integer counts = courseMapper.getCounts();
+        return counts;
+    }
+
+    @Override
+    public List<Course> getAllCourse() {
+        List<Course> allCourse = courseMapper.getAllCourse();
+        return allCourse;
+    }
 }

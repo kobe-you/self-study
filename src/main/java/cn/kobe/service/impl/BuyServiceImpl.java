@@ -1,6 +1,7 @@
 package cn.kobe.service.impl;
 
 import cn.kobe.bean.Buy;
+import cn.kobe.beanVo.BuyVo;
 import cn.kobe.mapper.BuyMapper;
 import cn.kobe.service.BuyService;
 import cn.kobe.util.SnowflakeIdWorker;
@@ -18,7 +19,6 @@ import java.util.List;
 public class BuyServiceImpl implements BuyService {
     @Autowired
     private BuyMapper buyMapper;
-    SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker();
 
     @Override
     public int deleteByPrimaryKey(String buyId) {
@@ -28,7 +28,6 @@ public class BuyServiceImpl implements BuyService {
 
     @Override
     public int insert(Buy record) {
-        record.setBuyId(Long.toString(snowflakeIdWorker.nextId()));
         int insert = buyMapper.insert(record);
         return insert;
     }
@@ -58,4 +57,5 @@ public class BuyServiceImpl implements BuyService {
         List<Buy> buys = buyMapper.selectByName(name, pageNumber, pageSize);
         return buys;
     }
+
 }

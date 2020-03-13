@@ -1,6 +1,7 @@
 package cn.kobe.service;
 
 import cn.kobe.bean.Buy;
+import cn.kobe.beanVo.BuyVo;
 
 import java.util.List;
 
@@ -21,4 +22,5 @@ public interface BuyService {
     int updateByPrimaryKey(Buy record);
 
     List<Buy> selectByName(String name, Integer pageNumber, Integer pageSize);
+
 }

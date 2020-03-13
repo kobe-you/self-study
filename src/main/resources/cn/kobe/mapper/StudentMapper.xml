@@ -83,4 +83,16 @@
   <update id="updateCoinById" >
     UPDATE  student SET student.`student_coin`=student.`student_coin`+#{v} WHERE student.`student_id`=#{id}
   </update>
+
+  <select id="getRank" resultType="java.lang.Integer">
+    SELECT ranks  FROM  (SELECT * ,@curRank := @curRank + 1 AS ranks
+    FROM student s, (SELECT  @curRank := 0) q
+    ORDER BY s.student_createtime) AS a
+    WHERE a.student_id=#{studentId}
+  </select>
+
+  <select id="getCounts" resultType="java.lang.Integer">
+    select count(student_id) from student
+  </select>
+
 </mapper>

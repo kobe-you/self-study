@@ -21,4 +21,8 @@ public interface CarouselService {
     int updateByPrimaryKey(Carousel record);
 
     List<Carousel> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    Integer updateIsDelete(String s);
+
+    Integer updateDelete(String s);
 }

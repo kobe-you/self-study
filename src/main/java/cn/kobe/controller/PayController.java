@@ -1,10 +1,13 @@
 package cn.kobe.controller;
 
 import cn.kobe.bean.Admin;
+import cn.kobe.bean.Buy;
 import cn.kobe.bean.Pay;
 import cn.kobe.config.AlipayConfig;
+import cn.kobe.config.AlipayConfigforBuy;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
+import cn.kobe.service.BuyService;
 import cn.kobe.service.PayService;
 import cn.kobe.service.StudentService;
 import cn.kobe.util.Status;
@@ -21,10 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author: kobe byrant
@@ -39,6 +39,9 @@ public class PayController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private BuyService buyService;
 
     @RequestMapping("/selectAll/{page}/{size}")
     @ResponseBody
@@ -111,7 +114,7 @@ public class PayController {
     @RequestMapping("/goAlipay")
     @ResponseBody
     public String goAlipay(@RequestBody Pay pay) throws Exception {
-        // System.out.println(AlipayConfig.gatewayUrl+" "+ AlipayConfig.app_id+" "+ AlipayConfig.merchant_private_key+""+"json"+" "+ AlipayConfig.charset+" " +AlipayConfig.alipay_public_key+" "+AlipayConfig.sign_type);
+        System.out.println(pay.getPayMoney());
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
@@ -124,9 +127,40 @@ public class PayController {
         String total_amount = pay.getPayMoney().toString();
         //订单名称，必填
         String subject = pay.getPayId();
+        pay.setPayTime(new Date());
         payService.insert(pay);
         // 该笔订单允许的最晚付款时间，逾期将关闭交易。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。 该参数数值不接受小数点， 如 1.5h，可转换为 90m。
         Integer i = studentService.updateCoinById(pay.getStudentId(),pay.getPayMoney()*10);
+        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
+                + "\"total_amount\":\""+ total_amount +"\","
+                + "\"subject\":\""+ subject +"\","
+                + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+
+        //请求
+        String result = alipayClient.pageExecute(alipayRequest).getBody();
+        System.out.println(result);
+        return result;
+    }
+
+    @RequestMapping("/goAlipayForBuy")
+    @ResponseBody
+    public String goAlipayForBuy(@RequestBody Buy buy) throws Exception {
+        // System.out.println(AlipayConfig.gatewayUrl+" "+ AlipayConfig.app_id+" "+ AlipayConfig.merchant_private_key+""+"json"+" "+ AlipayConfig.charset+" " +AlipayConfig.alipay_public_key+" "+AlipayConfig.sign_type);
+        //获得初始化的AlipayClient
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfigforBuy.gatewayUrl, AlipayConfigforBuy.app_id, AlipayConfigforBuy.merchant_private_key, "json", AlipayConfigforBuy.charset, AlipayConfigforBuy.alipay_public_key, AlipayConfigforBuy.sign_type);
+
+        //设置请求参数
+        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+        alipayRequest.setReturnUrl(AlipayConfigforBuy.return_url);
+        alipayRequest.setNotifyUrl(AlipayConfigforBuy.notify_url);
+        String out_trade_no = buy.getBuyId();
+        //付款金额，必填
+        String total_amount = buy.getBuyMoney().toString();
+        //订单名称，必填
+        String subject = buy.getBuyId();
+        buy.setBuyCreatetime(new Date());
+        buyService.insert(buy);
+        // 该笔订单允许的最晚付款时间，逾期将关闭交易。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。 该参数数值不接受小数点， 如 1.5h，可转换为 90m。
         alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
                 + "\"total_amount\":\""+ total_amount +"\","
                 + "\"subject\":\""+ subject +"\","

@@ -15,6 +15,33 @@ public class CommentAndReply extends Student {
     private String studentC;
     private String content;
     private Date createDate;
+    private String commentId;
+    private String replyId;
+    private String relyeredId;
+
+    public String getRelyeredId() {
+        return relyeredId;
+    }
+
+    public void setRelyeredId(String relyeredId) {
+        this.relyeredId = relyeredId;
+    }
+
+    public String getReplyId() {
+        return replyId;
+    }
+
+    public void setReplyId(String replyId) {
+        this.replyId = replyId;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
 
     public String getStudentC() {
         return studentC;
@@ -56,14 +83,4 @@ public class CommentAndReply extends Student {
         this.createDate = createDate;
     }
 
-    @Override
-    public String toString() {
-        return "CommentAndReply{" +
-                "courseId='" + courseId + '\'' +
-                ", type='" + type + '\'' +
-                ", studentId='" + studentC + '\'' +
-                ", content='" + content + '\'' +
-                ", createDate=" + createDate +
-                '}';
-    }
 }

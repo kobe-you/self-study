@@ -2,6 +2,7 @@ package cn.kobe.controller;
 
 import cn.kobe.bean.Admin;
 import cn.kobe.bean.Buy;
+import cn.kobe.beanVo.BuyVo;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
 import cn.kobe.service.BuyService;
@@ -94,4 +95,17 @@ public class BuyController {
         pageResult.setPageSize(pageSize);
         return pageResult;
     }
+
+//    @RequestMapping("/searchSuccessBuy/{id}")
+//    @ResponseBody
+//    public PageResult<BuyVo> searchSuccessBuy(@PathVariable("id") String id) {
+//        System.out.println(id);
+//        List<BuyVo> buys = buyService.searchSuccessBuy(id);
+//        System.out.println(buys);
+//        PageResult<BuyVo> pageResult = new PageResult<BuyVo>();
+//        pageResult.setData(buys);
+//        pageResult.setCode("200");
+//        pageResult.setTotal(buys.size());
+//        return pageResult;
+//    }
 }

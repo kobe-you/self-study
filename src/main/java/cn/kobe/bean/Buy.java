@@ -11,6 +11,16 @@ public class Buy {
 
     private Date buyCreatetime;
 
+    private Double buyMoney;
+
+    public Double getBuyMoney() {
+        return buyMoney;
+    }
+
+    public void setBuyMoney(Double buyMoney) {
+        this.buyMoney = buyMoney;
+    }
+
     public String getBuyId() {
         return buyId;
     }
@@ -41,5 +51,16 @@ public class Buy {
 
     public void setBuyCreatetime(Date buyCreatetime) {
         this.buyCreatetime = buyCreatetime;
+    }
+
+    @Override
+    public String toString() {
+        return "Buy{" +
+                "buyId='" + buyId + '\'' +
+                ", courseId='" + courseId + '\'' +
+                ", studentId='" + studentId + '\'' +
+                ", buyCreatetime=" + buyCreatetime +
+                ", buyMoney=" + buyMoney +
+                '}';
     }
 }

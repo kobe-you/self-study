@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,6 +55,7 @@ public class ReplyController {
     @RequestMapping("/add")
     @ResponseBody
     public Result<String> insert(@RequestBody Reply reply) {
+        reply.setReplyTime(new Date());
         int insert = replyService.insert(reply);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");

@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int insert(Student record) {
-        record.setStudentId(Long.toString(snowflakeIdWorker.nextId()));
+        record.setStudentId(record.getStudentAccount());
         record.setStudentCreatetime(new Date());
         int i = studentMapper.insert(record);
         return i;
@@ -81,5 +81,17 @@ public class StudentServiceImpl implements StudentService {
     public Integer updateCoinById(String studentId, float v) {
         Integer i = studentMapper.updateCoinById(studentId, v);
         return i;
+    }
+
+    @Override
+    public Integer getRank(String studentId) {
+        Integer rank = studentMapper.getRank(studentId);
+        return rank;
+    }
+
+    @Override
+    public Integer getCounts() {
+        Integer counts = studentMapper.getCounts();
+        return counts;
     }
 }

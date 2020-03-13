@@ -29,4 +29,8 @@ public interface StudentService {
     Student login(String account, String password);
 
     Integer updateCoinById(String studentId, float v);
+
+    Integer getRank(String studentId);
+
+    Integer getCounts();
 }

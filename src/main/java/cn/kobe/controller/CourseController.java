@@ -148,9 +148,6 @@ public class CourseController {
         System.out.println(courseType);
         PageResult<CourseVo> pageResult = new PageResult<CourseVo>();
         List<CourseVo> courses = courseVoService.searchAllCourse(courseType);
-        for(CourseVo courseVo: courses) {
-            System.out.println(courseVo);
-        }
         pageResult.setData(courses);
         pageResult.setCode("200");
         return pageResult;
@@ -194,6 +191,29 @@ public class CourseController {
     public PageResult<Course> searchStudied(@PathVariable("id") String id) {
         PageResult<Course> pageResult = new PageResult<Course>();
         List<Course> courses = courseService.searchStudied(id);
+        pageResult.setData(courses);
+        pageResult.setCode("200");
+        pageResult.setTotal(courses.size());
+        return pageResult;
+    }
+
+    @RequestMapping("/searchByCateAndGrade/{cate}/{grade}/{sort}")
+    @ResponseBody
+    public PageResult<Course> searchByCateAndGrade(@PathVariable("cate") String cate, @PathVariable("grade") String grade, @PathVariable("sort") Integer sort) {
+        PageResult<Course> pageResult = new PageResult<Course>();
+        System.out.println(cate+" "+grade+" "+ sort);
+        List<Course> courses = courseService.searchByCateAndGrade(cate, grade, sort);
+        pageResult.setData(courses);
+        pageResult.setCode("200");
+        pageResult.setTotal(courses.size());
+        return pageResult;
+    }
+
+    @RequestMapping("/getAllCourse")
+    @ResponseBody
+    public PageResult<Course> getAllCourse() {
+        PageResult<Course> pageResult = new PageResult<Course>();
+        List<Course> courses = courseService.getAllCourse();
         pageResult.setData(courses);
         pageResult.setCode("200");
         pageResult.setTotal(courses.size());

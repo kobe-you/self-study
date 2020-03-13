@@ -38,4 +38,10 @@ public interface CourseService {
     List<Course> searchByTeacherId(String id);
 
     List<Course> searchStudied(String id);
+
+    List<Course> searchByCateAndGrade(String cate, String grade, Integer sort);
+
+    Integer getCounts();
+
+    List<Course> getAllCourse();
 }

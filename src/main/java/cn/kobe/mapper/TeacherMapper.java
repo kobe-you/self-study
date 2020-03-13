@@ -22,4 +22,6 @@ public interface TeacherMapper {
     Teacher selectByAccount(String acount);
 
     Integer getMoney(String id);
+
+    Integer getCounts();
 }

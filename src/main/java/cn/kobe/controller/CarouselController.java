@@ -9,10 +9,7 @@ import cn.kobe.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,9 @@ public class CarouselController {
         pageNumber--;
         PageResult<Carousel> pageResult = new PageResult<Carousel>();
         List<Carousel> carousels = carouselService.selectAll(pageNumber, pageSize);
+        for(Carousel carousel:carousels) {
+            System.out.println(carousel.getIsDelete());
+        }
         pageResult.setData(carousels);
         pageResult.setCode("200");
         pageResult.setTotal(carousels.size());
@@ -93,5 +93,25 @@ public class CarouselController {
         pageResult.setPageNumber(pageNumber);
         pageResult.setPageSize(pageSize);
         return pageResult;
+    }
+
+    @RequestMapping("/updateIsDelete")
+    @ResponseBody
+    public Result<String> updateIsDelete(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = carouselService.updateIsDelete(arr[i]);
+        }
+        System.out.println(arr);
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/updateDelete")
+    @ResponseBody
+    public Result<String> updateDelete(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = carouselService.updateDelete(arr[i]);
+        }
+        System.out.println(arr);
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
     }
 }

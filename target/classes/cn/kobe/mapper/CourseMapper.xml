@@ -16,6 +16,7 @@
     <result column="course_createtime" property="courseCreatetime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="BIT" />
     <result column="course_deletetime" property="courseDeletetime" jdbcType="TIMESTAMP" />
+    <result column="course_price" property="coursePrice" jdbcType="DOUBLE" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from course
@@ -26,12 +27,12 @@
       course_describe, course_type, teacher_id, 
       course_baidu_url, course_level, course_basics, 
       course_software, course_cate, course_createtime, is_delete,
-      course_deletetime)
+      course_deletetime, course_price)
     values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{coursePicture,jdbcType=VARCHAR}, 
       #{courseDescribe,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, #{teacherId,jdbcType=VARCHAR}, 
       #{courseBaiduUrl,jdbcType=VARCHAR}, #{courseLevel,jdbcType=VARCHAR}, #{courseBasics,jdbcType=VARCHAR}, 
       #{courseSoftware,jdbcType=VARCHAR}, #{courseCate,jdbcType=TIMESTAMP},#{courseCreatetime,jdbcType=TIMESTAMP},
-      #{isDelete,jdbcType=BIT}, #{courseDeletetime,jdbcType=TIMESTAMP})
+      #{isDelete,jdbcType=BIT}, #{courseDeletetime,jdbcType=TIMESTAMP},#{coursePrice,jdbcType=DOUBLE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.kobe.bean.Course" >
     update course
@@ -47,26 +48,27 @@
       course_cate = #{courseCate,jdbcType=VARCHAR},
       course_createtime = #{courseCreatetime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=BIT},
-      course_deletetime = #{courseDeletetime,jdbcType=TIMESTAMP}
+      course_deletetime = #{courseDeletetime,jdbcType=TIMESTAMP},
+      course_price = # {coursePrice,jdbcType=DOUBLE}
     where course_id = #{courseId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select course_id, course_name, course_picture, course_describe, course_type, teacher_id, 
     course_baidu_url, course_level, course_basics, course_software, course_cate, course_createtime,
-    is_delete, course_deletetime
+    is_delete, course_deletetime,course_price
     from course
     where course_id = #{courseId,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select course_id, course_name, course_picture, course_describe, course_type, teacher_id, 
     course_baidu_url, course_level, course_basics, course_software, course_cate, course_createtime,
-    is_delete, course_deletetime
+    is_delete, course_deletetime,course_price
     from course limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectByName" resultMap="BaseResultMap" >
     select course_id, course_name, course_picture, course_describe, course_type, teacher_id,
     course_baidu_url, course_level, course_basics, course_software, course_cate, course_createtime,
-    is_delete, course_deletetime
+    is_delete, course_deletetime,course_price
     from course where course_name=#{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectNewest" resultMap="BaseResultMap">
@@ -102,5 +104,30 @@
     SELECT * FROM course
     WHERE course.`course_id`
     IN (SELECT e.`course_id` FROM look AS l LEFT JOIN lesson AS e ON l.`lesson_id`=e.`lesson_id` WHERE l.`student_id`=#{id} GROUP BY e.`course_id`)
+  </select>
+  <select id="searchByCateAndGrade" resultMap="BaseResultMap">
+    select * from course
+    <where>
+      <if test='cate != null and cate != "*"'>
+        and course_cate = #{cate}
+      </if>
+      <if test='grade != null and grade != "*"'>
+        and course_level = #{grade}
+      </if>
+      <choose>
+        <when test="sort == 0">
+          order by course_createtime desc
+        </when>
+        <otherwise>
+          order by course_createtime asc
+        </otherwise>
+      </choose>
+    </where>
+  </select>
+  <select id="getCounts" resultType="java.lang.Integer">
+    select count(course_id) from course
+  </select>
+  <select id="getAllCourse" resultMap="BaseResultMap">
+    SELECT * FROM course
   </select>
 </mapper>

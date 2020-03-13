@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.TrendMapper" >
+    <resultMap id="BaseResultMap" type="cn.kobe.beanVo.Trend" >
+        <result column="trendDate" property="trendDate" jdbcType="TIMESTAMP" />
+        <result column="counts" property="counts" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="getTrend" resultMap="BaseResultMap">
+        SELECT DATE(student_createtime) AS trendDate,COUNT(DATE(student_createtime)) AS counts
+        FROM student GROUP BY DATE(student_createtime)
+    </select>
+    <select id="getMoneyTrend" resultMap="BaseResultMap">
+        SELECT l.`look_createtime` AS trendDate, SUM(e.`lesson_coin`) AS counts
+        FROM look AS l LEFT JOIN lesson AS e ON l.`lesson_id`=e.`lesson_id` AND e.`lesson_coin` &gt; 0
+        GROUP BY DATE(l.`look_createtime`)
+    </select>
+    <select id="getPlayCounts" resultMap="BaseResultMap">
+        SELECT NOW() AS trendDate ,e.`lesson_count` AS counts
+        FROM course AS c, lesson AS e
+        WHERE c.`course_id`=e.`course_id` AND c.`course_id`=#{courseId}
+    </select>
+</mapper>

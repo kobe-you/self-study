@@ -1,6 +1,7 @@
 package cn.kobe.mapper;
 
 import cn.kobe.bean.Buy;
+import cn.kobe.beanVo.BuyVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,5 @@ public interface BuyMapper {
     int updateByPrimaryKey(Buy record);
 
     List<Buy> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
 }

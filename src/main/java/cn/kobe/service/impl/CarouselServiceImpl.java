@@ -59,4 +59,16 @@ public class CarouselServiceImpl implements CarouselService {
         List<Carousel> carousels = carouselMapper.selectByName(name, pageNumber, pageSize);
         return carousels;
     }
+
+    @Override
+    public Integer updateIsDelete(String s) {
+        Integer integer = carouselMapper.updateIsDelete(s);
+        return integer;
+    }
+
+    @Override
+    public Integer updateDelete(String s) {
+        Integer integer = carouselMapper.updateDelete(s);
+        return integer;
+    }
 }

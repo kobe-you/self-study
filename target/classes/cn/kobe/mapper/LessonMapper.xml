@@ -21,18 +21,16 @@
       #{isDelete,jdbcType=BIT}, #{lessonDeletetime,jdbcType=TIMESTAMP}, #{lessonVideo,jdbcType=VARCHAR})
   </insert>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select lesson_id, lesson_name, course_id, lesson_coin, lesson_count, lesson_createtime, 
-    is_delete, lesson_deletetime, course_video
+    select *
     from lesson limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectByName" resultMap="BaseResultMap" >
-    select lesson_id, lesson_name, course_id, lesson_coin, lesson_count, lesson_createtime,
-    is_delete, lesson_deletetime, course_video
+    select *
     from lesson where lesson_name=#{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     select lesson_id, lesson_name, course_id, lesson_coin, lesson_count, lesson_createtime,
-    is_delete, lesson_deletetime, course_video
+    is_delete, lesson_deletetime, lesson_video
     from lesson where lesson_id = #{lessonId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

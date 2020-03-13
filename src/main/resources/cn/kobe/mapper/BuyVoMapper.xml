@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.kobe.mapper.BuyVoMapper" >
+  <resultMap id="BaseResultMap" type="cn.kobe.beanVo.BuyVo" >
+    <id column="buy_id" property="buyId" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="VARCHAR" />
+    <result column="buy_createtime" property="buyCreatetime" jdbcType="TIMESTAMP" />
+    <result column="buy_money" property="buyMoney" jdbcType="DOUBLE" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_picture" property="coursePicture" jdbcType="VARCHAR" />
+    <result column="course_describe" property="courseDescribe" jdbcType="VARCHAR" />
+    <result column="course_type" property="courseType" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="course_baidu_url" property="courseBaiduUrl" jdbcType="VARCHAR" />
+    <result column="course_level" property="courseLevel" jdbcType="VARCHAR" />
+    <result column="course_basics" property="courseBasics" jdbcType="VARCHAR" />
+    <result column="course_software" property="courseSoftware" jdbcType="VARCHAR" />
+    <result column="course_cate" property="courseCate" jdbcType="VARCHAR" />
+    <result column="course_createtime" property="courseCreatetime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+    <result column="course_deletetime" property="courseDeletetime" jdbcType="TIMESTAMP" />
+    <result column="course_price" property="coursePrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="searchSuccessBuy" resultMap="BaseResultMap" >
+    SELECT buy.`buy_id`,buy.`buy_money`,buy.`buy_createtime`,buy.`student_id`,course.*
+    FROM buy,course
+    WHERE buy.`course_id`=course.`course_id` AND buy.`student_id`=#{studentId}
+  </select>
+</mapper>

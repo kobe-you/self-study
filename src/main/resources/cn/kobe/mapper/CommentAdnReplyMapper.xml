@@ -19,18 +19,20 @@
     <result column="studentC" property="studentC" jdbcType="TIMESTAMP" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="reply_id" property="replyId" jdbcType="VARCHAR" />
+    <result column="relyered_id" property="relyeredId" jdbcType="VARCHAR" />
   </resultMap>
   <select id="selectAllComment" resultMap="BaseResultMap">
-    SELECT * FROM
-    (SELECT IF(T.type='t2',T.createDate2,T.createDate3) AS createDate, T.type, T.course_id AS courseId, T.student_id AS studentC, T.content
+    SELECT IF(T.type='t2',T.createDate2,T.createDate3) AS createDate, T.type, T.course_id AS courseId, T.student_id AS studentC,
+    T.content,T.student_img,T.comment_id,T.reply_id,T.relyered_id
     FROM((SELECT nc.comment_createtime AS createDate2, "" AS createDate3, "t2" AS TYPE,
-    nc.student_id, nc.course_id, CONCAT('',nc.comment_content) AS content
-    FROM COMMENT nc
-    WHERE nc.course_id=#{courseId} ORDER BY nc.comment_createtime ASC)
+    nc.student_id, nc.course_id, CONCAT('',nc.comment_content) AS content ,s.student_img,nc.`comment_id`, "" AS reply_id,"" AS relyered_id
+    FROM COMMENT nc ,student s
+    WHERE nc.course_id=#{courseId} AND s.`student_id`=nc.`student_id` ORDER BY nc.comment_createtime ASC)
     UNION (SELECT nc.comment_createtime AS createDate2, nr.reply_time AS createDate3, "t3" AS TYPE,
-    nr.replyer_id, nc.course_id, CONCAT('    ',nr.reply_content) AS content FROM reply nr
-    LEFT JOIN COMMENT nc ON nr.comment_id=nc.comment_id WHERE nc.course_id=#{courseId}
-    ORDER BY nc.comment_createtime ASC, nr.reply_time ASC)) AS T ORDER BY createDate2 ASC, createDate3 ASC) AS a
-    LEFT JOIN student AS s ON a.studentC=s.student_account ORDER BY a.createDate asc
+    nr.replyer_id, nc.course_id, CONCAT('    ',nr.reply_content) AS content , s.student_img ,nc.`comment_id`, nr.reply_id ,nr.relyered_id FROM reply nr
+    LEFT JOIN COMMENT nc ON nr.comment_id=nc.comment_id LEFT JOIN student s ON nr.replyer_id=s.student_id WHERE nc.course_id=#{courseId}
+    ORDER BY nc.comment_createtime ASC, nr.reply_time ASC)) AS T ORDER BY createDate2 DESC, createDate3 ASC
   </select>
 </mapper>

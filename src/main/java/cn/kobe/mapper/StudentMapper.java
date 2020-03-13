@@ -25,4 +25,8 @@ public interface StudentMapper {
     Student login(@Param("account")String account,@Param("password") String password);
 
     Integer updateCoinById(@Param("id") String studentId, @Param("v") float v);
+
+    Integer getRank(String studentId);
+
+    Integer getCounts();
 }

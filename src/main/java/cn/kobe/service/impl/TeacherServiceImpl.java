@@ -76,4 +76,10 @@ public class TeacherServiceImpl implements TeacherService {
         return money;
     }
 
+    @Override
+    public Integer getCounts() {
+        Integer counts = teacherMapper.getCounts();
+        return counts;
+    }
+
 }

@@ -31,6 +31,16 @@ public class Course {
 
     private Date courseDeletetime;
 
+    private Double coursePrice;
+
+    public Double getCoursePrice() {
+        return coursePrice;
+    }
+
+    public void setCoursePrice(Double coursePrice) {
+        this.coursePrice = coursePrice;
+    }
+
     public String getCourseCate() {
         return courseCate;
     }
