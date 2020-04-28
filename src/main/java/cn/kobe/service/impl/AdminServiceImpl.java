@@ -62,4 +62,6 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = adminMapper.login(account, password);
         return admin;
     }
+
+
 }

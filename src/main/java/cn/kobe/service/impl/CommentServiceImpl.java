@@ -58,4 +58,16 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentMapper.selectByName(name, pageNumber, pageSize);
         return comments;
     }
+
+    @Override
+    public Integer startComment(String s) {
+        Integer integer = commentMapper.startComment(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banComment(String s) {
+        Integer integer = commentMapper.banComment(s);
+        return integer;
+    }
 }

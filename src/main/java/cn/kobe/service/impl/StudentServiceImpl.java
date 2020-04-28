@@ -94,4 +94,22 @@ public class StudentServiceImpl implements StudentService {
         Integer counts = studentMapper.getCounts();
         return counts;
     }
+
+    @Override
+    public Integer isRegist(String studentId) {
+        Integer counts = studentMapper.isRegist(studentId);
+        return counts;
+    }
+
+    @Override
+    public Integer startStudent(String s) {
+        Integer integer = studentMapper.startStudent(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banStudent(String s) {
+        Integer integer = studentMapper.banStudent(s);
+        return null;
+    }
 }

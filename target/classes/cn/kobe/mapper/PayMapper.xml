@@ -35,6 +35,6 @@
   </select>
   <select id="selectByName" resultMap="BaseResultMap" >
     select pay_id, student_id, pay_money, pay_time
-    from pay where student_id=#{name} limit #{pageNumber}, #{pageSize}
+    from pay where student_id like #{name} limit #{pageNumber}, #{pageSize}
   </select>
 </mapper>

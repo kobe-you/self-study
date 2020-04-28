@@ -219,4 +219,33 @@ public class CourseController {
         pageResult.setTotal(courses.size());
         return pageResult;
     }
+
+    @RequestMapping("/startCourse")
+    @ResponseBody
+    public Result<String> startCourse(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = courseService.startCourse(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banCourse")
+    @ResponseBody
+    public Result<String> banCourse(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = courseService.banCourse(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/searchCollectedCourse/{studentId}")
+    @ResponseBody
+    public PageResult<Course> searchCollectedCourse(@PathVariable("studentId") String studentId ) {
+        PageResult<Course> pageResult = new PageResult<Course>();
+        List<Course> result = courseService.searchCollectedCourse(studentId);
+        pageResult.setData(result);
+        pageResult.setCode("200");
+        pageResult.setTotal(result.size());
+        return pageResult;
+    }
 }

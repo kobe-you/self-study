@@ -80,11 +80,12 @@ public class AdminController {
         return new Result<Admin>(Status.SYSTEM_OF_ERROR, "system of error",admin);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Admin> selectByName(@PathVariable("name") String name,@PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Admin> pageResult = new PageResult<Admin>();
+        name = "%" + name + "%";
         List<Admin> admins = adminService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(admins);
         pageResult.setCode("200");

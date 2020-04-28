@@ -35,7 +35,7 @@
   </select>
   <select id="selectByName" resultMap="BaseResultMap" >
     select look_id, lesson_id, look_createtime, student_id
-    from look where lesson_id=#{name} limit #{pageNumber}, #{pageSize}
+    from look where lesson_id like #{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectLook" resultMap="BaseResultMap">
     SELECT * FROM look WHERE look.`lesson_id`=#{lessonId} AND look.`student_id`=#{studentId}

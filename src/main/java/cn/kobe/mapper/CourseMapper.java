@@ -43,4 +43,10 @@ public interface CourseMapper {
 
     List<Course> getAllCourse();
 
+    Integer startCourse(String s);
+
+    Integer banCourse(String s);
+
+    List<Course> searchCollectedCourse(String studentId);
+
 }

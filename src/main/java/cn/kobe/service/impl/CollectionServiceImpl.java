@@ -1,6 +1,7 @@
 package cn.kobe.service.impl;
 
 import cn.kobe.bean.Collection;
+import cn.kobe.bean.Course;
 import cn.kobe.mapper.CollectionMapper;
 import cn.kobe.service.CollectionService;
 import cn.kobe.util.SnowflakeIdWorker;
@@ -58,4 +59,23 @@ public class CollectionServiceImpl implements CollectionService {
         List<Collection> collections = collectionMapper.selectByName(name, pageNumber, pageSize);
         return collections;
     }
+
+    @Override
+    public Integer startCollection(String s) {
+        Integer integer = collectionMapper.startCollection(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banCollection(String s) {
+        Integer integer = collectionMapper.banCollection(s);
+        return integer;
+    }
+
+    @Override
+    public List<Collection> isCollected(String studentId, String courseId) {
+        List<Collection> list = collectionMapper.isCollected(studentId, courseId);
+        return list;
+    }
+
 }

@@ -23,4 +23,8 @@ public interface AdminService {
     List<Admin> selectByName(String name, Integer pageNumber, Integer pageSize);
 
     Admin login(String account, String password);
+
+//    Integer startAdmin(String s);
+//
+//    Integer banAdmin(String s);
 }

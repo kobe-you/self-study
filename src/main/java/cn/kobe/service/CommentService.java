@@ -21,4 +21,8 @@ public interface CommentService {
     int updateByPrimaryKey(Comment record);
 
     List<Comment> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    Integer startComment(String s);
+
+    Integer banComment(String s);
 }

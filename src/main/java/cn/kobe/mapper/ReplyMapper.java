@@ -17,4 +17,8 @@ public interface ReplyMapper {
     int updateByPrimaryKey(Reply record);
 
     List<Reply> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    Integer startReply(String s);
+
+    Integer banReply(String s);
 }

@@ -65,4 +65,16 @@ public class LessonServiceImpl implements LessonService {
         List<Lesson> lessons = lessonMapper.selectByCourseId(id);
         return lessons;
     }
+
+    @Override
+    public Integer startLesson(String s) {
+        Integer integer = lessonMapper.startLesson(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banLesson(String s) {
+        Integer integer = lessonMapper.banLesson(s);
+        return integer;
+    }
 }

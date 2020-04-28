@@ -82,4 +82,16 @@ public class TeacherServiceImpl implements TeacherService {
         return counts;
     }
 
+    @Override
+    public Integer startTeacher(String s) {
+        Integer integer = teacherMapper.startTeacher(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banTeacher(String s) {
+        Integer integer = teacherMapper.banTeacher(s);
+        return integer;
+    }
+
 }

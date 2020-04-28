@@ -83,11 +83,12 @@ public class LookController {
         return new Result<Look>(Status.SYSTEM_OF_ERROR, "system of error",look);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Look> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Look> pageResult = new PageResult<Look>();
+        name = "%" + name + "%";
         List<Look> looks = lookService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(looks);
         pageResult.setCode("200");

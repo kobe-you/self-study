@@ -58,4 +58,16 @@ public class ReplyServiceImpl implements ReplyService {
         List<Reply> replies = replyMapper.selectByName(name, pageNumber, pageSize);
         return replies;
     }
+
+    @Override
+    public Integer startReply(String s) {
+        Integer integer = replyMapper.startReply(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banReply(String s) {
+        Integer integer = replyMapper.banReply(s);
+        return integer;
+    }
 }

@@ -44,7 +44,7 @@ public class CrossingFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         String isCrossStr = filterConfig.getInitParameter("IsCross");
         isCross = isCrossStr.equals("true") ? true : false;
-        System.out.println("跨域开启状态：" + isCrossStr);
+//        System.out.println("跨域开启状态：" + isCrossStr);
     }
 
 }

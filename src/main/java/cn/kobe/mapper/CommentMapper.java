@@ -17,4 +17,8 @@ public interface CommentMapper {
     int updateByPrimaryKey(Comment record);
 
     List<Comment> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    Integer startComment(String s);
+
+    Integer banComment(String s);
 }

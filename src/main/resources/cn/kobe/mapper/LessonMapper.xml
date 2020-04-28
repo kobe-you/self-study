@@ -26,7 +26,7 @@
   </select>
   <select id="selectByName" resultMap="BaseResultMap" >
     select *
-    from lesson where lesson_name=#{name} limit #{pageNumber}, #{pageSize}
+    from lesson where lesson_name like #{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     select lesson_id, lesson_name, course_id, lesson_coin, lesson_count, lesson_createtime,
@@ -41,4 +41,10 @@
     WHERE e.`course_id` = #{id}
     ORDER BY e.`lesson_createtime`
   </select>
+  <update id="startLesson" parameterType="java.lang.String" >
+    UPDATE lesson AS c SET c.`is_delete`=1 WHERE c.`lesson_id`=#{s}
+  </update>
+  <update id="banLesson" parameterType="java.lang.String" >
+   UPDATE lesson AS c SET c.`is_delete`=0 WHERE c.`lesson_id`=#{s}
+  </update>
 </mapper>

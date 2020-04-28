@@ -55,6 +55,7 @@ public class TeacherController {
     @ResponseBody
     public Result<String> insert(@RequestBody Teacher teacher) {
         teacher.setDelete(false);
+        System.out.println("teacher");
         int insert = teacherService.insert(teacher);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");
@@ -92,11 +93,12 @@ public class TeacherController {
         return new Result<Teacher>(Status.SYSTEM_OF_ERROR, "system of error",teacher);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size}")
+    @RequestMapping("/searchByName/{name}/{page}/{size}")
     @ResponseBody
     public PageResult<Teacher> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Teacher> pageResult = new PageResult<Teacher>();
+        name = "%" + name + "%";
         List<Teacher> teachers = teacherService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(teachers);
         pageResult.setCode("200");
@@ -125,5 +127,27 @@ public class TeacherController {
             return new Result<Integer>(Status.SUCCESS, "success", result);
         }
         return new Result<Integer>(Status.SYSTEM_OF_ERROR, "system of error",result);
+    }
+
+    @RequestMapping("/startTeacher")
+    @ResponseBody
+    public Result<String> startTeacher(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = teacherService.startTeacher(arr[i]);
+            System.out.println(arr[i]);
+        }
+        System.out.println("78979879");
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banTeacher")
+    @ResponseBody
+    public Result<String> banTeacher(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = teacherService.banTeacher(arr[i]);
+            System.out.println(arr[i]);
+        }
+        System.out.println(arr);
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
     }
 }

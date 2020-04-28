@@ -1,6 +1,7 @@
 package cn.kobe.mapper;
 
 import cn.kobe.bean.Collection;
+import cn.kobe.bean.Course;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,11 @@ public interface CollectionMapper {
     int updateByPrimaryKey(Collection record);
 
     List<Collection> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
+
+    Integer startCollection(String s);
+
+    Integer banCollection(String s);
+
+    List<Collection> isCollected(@Param("studentId")String studentId, @Param("courseId")String courseId);
+
 }

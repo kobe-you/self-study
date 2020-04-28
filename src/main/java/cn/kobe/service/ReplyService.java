@@ -23,4 +23,8 @@ public interface ReplyService {
     int updateByPrimaryKey(Reply record);
 
     List<Reply> selectByName(String name, Integer pageNumber, Integer pageSize);
+
+    Integer startReply(String s);
+
+    Integer banReply(String s);
 }

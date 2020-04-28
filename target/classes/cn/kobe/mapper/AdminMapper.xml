@@ -36,9 +36,16 @@
 
   <select id="selectByName" resultMap="BaseResultMap" >
     select admin_account, admin_name, admin_password, admin_power
-    from admin where admin_name=#{name} limit #{pageNumber}, #{pageSize}
+    from admin where admin_name like #{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="login" resultMap="BaseResultMap" >
     select * from admin where admin.admin_account=#{account} and admin.admin_password=#{password}
   </select>
+  <!--<update id="startAdmin" parameterType="java.lang.String" >-->
+    <!--UPDATE admin AS a SET a.`is_delete`=1 WHERE a.`admin_id`=#{s}-->
+  <!--</update>-->
+
+  <!--<update id="banAdmin" parameterType="java.lang.String" >-->
+    <!--UPDATE admin AS a SET a.`is_delete`=0 WHERE a.`admin_id`=#{s}-->
+  <!--</update>-->
 </mapper>

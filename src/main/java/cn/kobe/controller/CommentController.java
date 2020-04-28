@@ -84,11 +84,12 @@ public class CommentController {
         return new Result<Comment>(Status.SYSTEM_OF_ERROR, "system of error",comment);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Comment> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Comment> pageResult = new PageResult<Comment>();
+        name = "%" + name + "%";
         List<Comment> comments = commentService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(comments);
         pageResult.setCode("200");
@@ -96,5 +97,23 @@ public class CommentController {
         pageResult.setPageNumber(pageNumber);
         pageResult.setPageSize(pageSize);
         return pageResult;
+    }
+
+    @RequestMapping("/startComment")
+    @ResponseBody
+    public Result<String> startComment(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = commentService.startComment(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banComment")
+    @ResponseBody
+    public Result<String> banComment(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = commentService.banComment(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
     }
 }

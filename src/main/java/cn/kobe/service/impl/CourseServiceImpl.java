@@ -125,4 +125,22 @@ public class CourseServiceImpl implements CourseService {
         List<Course> allCourse = courseMapper.getAllCourse();
         return allCourse;
     }
+
+    @Override
+    public Integer startCourse(String s) {
+        Integer integer = courseMapper.startCourse(s);
+        return integer;
+    }
+
+    @Override
+    public Integer banCourse(String s) {
+        Integer integer = courseMapper.banCourse(s);
+        return integer;
+    }
+
+    @Override
+    public List<Course> searchCollectedCourse(String studentId) {
+        List<Course> courses = courseMapper.searchCollectedCourse(studentId);
+        return courses;
+    }
 }

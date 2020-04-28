@@ -97,11 +97,12 @@ public class PayController {
         return new Result<Pay>(Status.SYSTEM_OF_ERROR, "system of error",pay);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Pay> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Pay> pageResult = new PageResult<Pay>();
+        name = "%" + name + "%";
         List<Pay> pays = payService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(pays);
         pageResult.setCode("200");

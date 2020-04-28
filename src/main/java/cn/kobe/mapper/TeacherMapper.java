@@ -24,4 +24,8 @@ public interface TeacherMapper {
     Integer getMoney(String id);
 
     Integer getCounts();
+
+    Integer startTeacher(String s);
+
+    Integer banTeacher(String s);
 }

@@ -81,11 +81,12 @@ public class CarouselController {
         return new Result<Carousel>(Status.SYSTEM_OF_ERROR, "system of error",carousel);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size}")
     @ResponseBody
     public PageResult<Carousel> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Carousel> pageResult = new PageResult<Carousel>();
+        name = "%" + name + "%";
         List<Carousel> carousels = carouselService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(carousels);
         pageResult.setCode("200");

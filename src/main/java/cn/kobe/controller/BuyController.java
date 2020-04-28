@@ -82,11 +82,12 @@ public class BuyController {
         return new Result<Buy>(Status.SYSTEM_OF_ERROR, "system of error",buy);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Buy> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Buy> pageResult = new PageResult<Buy>();
+        name = "%" + name + "%";
         List<Buy> buys = buyService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(buys);
         pageResult.setCode("200");

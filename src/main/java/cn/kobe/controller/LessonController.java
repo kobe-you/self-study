@@ -85,11 +85,12 @@ public class LessonController {
         return new Result<Lesson>(Status.SYSTEM_OF_ERROR, "system of error",lesson);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Lesson> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Lesson> pageResult = new PageResult<Lesson>();
+        name = "%" + name + "%";
         List<Lesson> lessons = lessonService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(lessons);
         pageResult.setCode("200");
@@ -107,5 +108,23 @@ public class LessonController {
         pageResult.setData(lessons);
         pageResult.setCode("200");
         return pageResult;
+    }
+
+    @RequestMapping("/startLesson")
+    @ResponseBody
+    public Result<String> startLesson(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = lessonService.startLesson(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banLesson")
+    @ResponseBody
+    public Result<String> banLesson(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = lessonService.banLesson(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
     }
 }

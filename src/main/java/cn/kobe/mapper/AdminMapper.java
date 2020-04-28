@@ -21,4 +21,5 @@ public interface AdminMapper {
     List<Admin> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     Admin login(@Param("account") String account, @Param("password") String password);
+
 }

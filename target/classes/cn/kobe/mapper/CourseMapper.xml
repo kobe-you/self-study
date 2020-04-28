@@ -69,7 +69,7 @@
     select course_id, course_name, course_picture, course_describe, course_type, teacher_id,
     course_baidu_url, course_level, course_basics, course_software, course_cate, course_createtime,
     is_delete, course_deletetime,course_price
-    from course where course_name=#{name} limit #{pageNumber}, #{pageSize}
+    from course where course_name like #{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="selectNewest" resultMap="BaseResultMap">
     SELECT * FROM course AS c ORDER BY c.course_createtime DESC LIMIT 8
@@ -129,5 +129,15 @@
   </select>
   <select id="getAllCourse" resultMap="BaseResultMap">
     SELECT * FROM course
+  </select>
+  <update id="startCourse" parameterType="java.lang.String" >
+    UPDATE course AS c SET c.`is_delete`=1 WHERE c.`course_id`=#{s}
+  </update>
+  <update id="banCourse" parameterType="java.lang.String" >
+   UPDATE course AS c SET c.`is_delete`=0 WHERE c.`course_id`=#{s}
+  </update>
+  <select id="searchCollectedCourse" resultMap="BaseResultMap" >
+    SELECT c.* FROM collection co,course c
+    WHERE co.`course_id`=c.`course_id` AND co.`student_id`=#{studentId}
   </select>
 </mapper>

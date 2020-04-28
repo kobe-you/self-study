@@ -71,7 +71,7 @@
     select teacher_id, teacher_account, teacher_name, teacher_password, teacher_sex,
     teacher_phone, teacher_email, is_delete, teacher_createtime, teacher_deletetime,
     teacher_img,teacher_describe,teacher_file
-    from teacher where teacher_name=#{name} limit #{pageNumber}, #{pageSize}
+    from teacher where teacher_name like #{name} limit #{pageNumber}, #{pageSize}
   </select>
   <select id="searchTopTeacher" resultMap="BaseResultMap">
     SELECT * FROM teacher AS c ORDER BY c.teacher_createtime LIMIT 0,4
@@ -87,4 +87,11 @@
   <select id="getCounts" resultType="java.lang.Integer">
     select count(teacher_id) from teacher
   </select>
+  <update id="startTeacher" parameterType="java.lang.String" >
+    UPDATE teacher AS s SET s.`is_delete`=1 WHERE s.`teacher_id`=#{s}
+  </update>
+
+  <update id="banTeacher" parameterType="java.lang.String" >
+    UPDATE teacher AS s SET s.`is_delete`=0 WHERE s.`teacher_id`=#{s}
+  </update>
 </mapper>

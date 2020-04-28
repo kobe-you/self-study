@@ -41,6 +41,13 @@
   </select>
   <select id="selectByName" resultMap="BaseResultMap" >
     select reply_id, reply_content, reply_time, comment_id, replyer_id, relyered_id
-    from reply where reply_content=#{name} limit #{pageNumber}, #{pageSize}
+    from reply where reply_content like #{name} limit #{pageNumber}, #{pageSize}
   </select>
+
+  <update id="startReply" parameterType="java.lang.String" >
+    UPDATE reply AS c SET c.`is_delete`=1 WHERE c.`reply_id`=#{s}
+  </update>
+  <update id="banReply" parameterType="java.lang.String" >
+   UPDATE reply AS c SET c.`is_delete`=0 WHERE c.`reply_id`=#{s}
+  </update>
 </mapper>

@@ -2,6 +2,7 @@ package cn.kobe.controller;
 
 import cn.kobe.bean.Buy;
 import cn.kobe.bean.Collection;
+import cn.kobe.bean.Course;
 import cn.kobe.dto.PageResult;
 import cn.kobe.dto.Result;
 import cn.kobe.service.CollectionService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,6 +56,8 @@ public class CollectionController {
     @RequestMapping("/add")
     @ResponseBody
     public Result<String> insert(@RequestBody Collection collection) {
+        collection.setIsDelete(false);
+        collection.setCollectionTime(new Date());
         int insert = collectionService.insert(collection);
         if(insert == 1) {
             return new Result<String>(Status.SUCCESS, "success","");
@@ -81,11 +85,12 @@ public class CollectionController {
         return new Result<Collection>(Status.SYSTEM_OF_ERROR, "system of error",collection);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Collection> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Collection> pageResult = new PageResult<Collection>();
+        name = "%" + name + "%";
         List<Collection> collections = collectionService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(collections);
         pageResult.setCode("200");
@@ -94,4 +99,37 @@ public class CollectionController {
         pageResult.setPageSize(pageSize);
         return pageResult;
     }
+
+    @RequestMapping("/startCollection")
+    @ResponseBody
+    public Result<String> startCollection(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = collectionService.startCollection(arr[i]);
+            System.out.println(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banCollection")
+    @ResponseBody
+    public Result<String> banCollection(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = collectionService.banCollection(arr[i]);
+            System.out.println(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/isCollected/{studentId}/{courseId}")
+    @ResponseBody
+    public Result<String> isCollected(@PathVariable("studentId") String studentId ,@PathVariable("courseId") String courseId) {
+        List<Collection> result = collectionService.isCollected(studentId, courseId);
+        if(result.size() > 0) {
+            return new Result<String>(Status.SUCCESS, "success",""+result.size());
+        }
+        else {
+            return new Result<String>(Status.SYSTEM_OF_ERROR, "error","");
+        }
+    }
+
 }

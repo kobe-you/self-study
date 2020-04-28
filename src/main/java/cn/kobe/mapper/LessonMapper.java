@@ -22,4 +22,8 @@ public interface LessonMapper {
     List<Lesson> selectByName(@Param("name") String name,@Param("pageNumber")Integer pageNumber, @Param("pageSize")Integer pageSize);
 
     List<Lesson> selectByCourseId(String id);
+
+    Integer startLesson(String s);
+
+    Integer banLesson(String s);
 }

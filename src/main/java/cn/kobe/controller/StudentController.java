@@ -91,6 +91,7 @@ public class StudentController {
     public PageResult<Student> selectByName(@PathVariable("name") String name,@PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Student> pageResult = new PageResult<Student>();
+        name = "%" + name + "%";
         List<Student> students = studentServicc.selectByName(name, pageNumber, pageSize);
         pageResult.setData(students);
         pageResult.setCode("200");
@@ -121,5 +122,39 @@ public class StudentController {
             return new Result<Integer>(Status.SUCCESS, "success",i);
         }
         return new Result<Integer>(Status.SYSTEM_OF_ERROR, "system of error",i);
+    }
+
+    @RequestMapping("/isRegist/{studentId}")
+    @ResponseBody
+    public Result<Integer> isRegist(@PathVariable("studentId") String studentId) {
+        System.out.println(studentId);
+        Integer i = studentServicc.isRegist(studentId);
+        System.out.println(i);
+        if(i > 0) {
+            return new Result<Integer>(Status.SYSTEM_OF_ERROR, "registed",i);
+        }
+        return new Result<Integer>(Status.SUCCESS, "success",i);
+    }
+
+    @RequestMapping("/startStudent")
+    @ResponseBody
+    public Result<String> startStudent(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = studentServicc.startStudent(arr[i]);
+            System.out.println(arr[i]);
+        }
+        System.out.println("78979879");
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banStudent")
+    @ResponseBody
+    public Result<String> banStudent(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = studentServicc.banStudent(arr[i]);
+            System.out.println(arr[i]);
+        }
+        System.out.println(arr);
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
     }
 }

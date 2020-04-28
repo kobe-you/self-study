@@ -29,4 +29,10 @@ public interface StudentMapper {
     Integer getRank(String studentId);
 
     Integer getCounts();
+
+    Integer isRegist(String studentId);
+
+    Integer startStudent(String s);
+
+    Integer banStudent(String s);
 }

@@ -24,4 +24,8 @@ public interface LessonService {
     List<Lesson> selectByName(String name, Integer pageNumber, Integer pageSize);
 
     List<Lesson> selectByCourseId(String id);
+
+    Integer startLesson(String s);
+
+    Integer banLesson(String s);
 }

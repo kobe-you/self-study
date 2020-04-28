@@ -83,11 +83,12 @@ public class ReplyController {
         return new Result<Reply>(Status.SYSTEM_OF_ERROR, "system of error",reply);
     }
 
-    @RequestMapping("/search/{name}/{page}/{size")
+    @RequestMapping("/searchByName/{name}/{page}/{size")
     @ResponseBody
     public PageResult<Reply> selectByName(@PathVariable("name") String name, @PathVariable("page") Integer pageNumber, @PathVariable("size")  Integer pageSize) {
         pageNumber--;
         PageResult<Reply> pageResult = new PageResult<Reply>();
+        name = "%" + name + "%";
         List<Reply> replies = replyService.selectByName(name, pageNumber, pageSize);
         pageResult.setData(replies);
         pageResult.setCode("200");
@@ -95,5 +96,23 @@ public class ReplyController {
         pageResult.setPageNumber(pageNumber);
         pageResult.setPageSize(pageSize);
         return pageResult;
+    }
+
+    @RequestMapping("/startReply")
+    @ResponseBody
+    public Result<String> startReply(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = replyService.startReply(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
+    }
+
+    @RequestMapping("/banLesson")
+    @ResponseBody
+    public Result<String> banReply(@RequestBody String[] arr) {
+        for(int i=0;i<arr.length;i++) {
+            Integer result = replyService.banReply(arr[i]);
+        }
+        return new Result<String>(Status.SYSTEM_OF_ERROR, "system of error","");
     }
 }
